@@ -7,12 +7,19 @@
           class: "form-control",
           placeholder: "Find a movie"
         %>
+        <%# For a dropdown: %>
+        <%# options_for_select([["Label of the option", 'Value sent to the params'], [...]]) %>
+        <%= select_tag :type, options_for_select([["Movies & TV Shows", 'all'] ,["Movies", 'movies'], ["TV Shows", 'tv'] ], params[:type]) %>
         <%= submit_tag "Search", class: "btn btn-primary" %>
       <% end %>
       <div id="movies">
-        <% @movies.each do |movie| %>
-          <h4><%= movie.title %></h4>
-          <p><%= movie.synopsis %></p>
+        <% if @movies.any? %>
+          <% @movies.each do |movie| %>
+            <h4><%= movie.title %></h4>
+            <p><%= movie.synopsis %></p>
+          <% end %>
+        <% else %>
+          <p>No results found for <em><%= params[:query] %></em></p>
         <% end %>
       </div>
     </div>
